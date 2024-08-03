@@ -9,8 +9,9 @@ const VULNERABLE_TIME_SEC : int = 8
 
 const verbose = false
 
+const DIFFICULTY_FACTOR = 0.4
 const ENEMY_SPEED = 120.0
-var speed = ENEMY_SPEED
+var speed = ENEMY_SPEED * DIFFICULTY_FACTOR
 #const JUMP_VELOCITY = -400.0
 
 const BLUE_SPEED_FACTOR = -0.5
@@ -163,9 +164,15 @@ func get_ghost_movement(delta):
         movement = current_movement
     
     return movement
+    
+func get_player_position():
+    return get_tree().get_nodes_in_group("player")[0].global_position
 
+func update_nav_target():
+    navigator.target_position = get_player_position()
+    
 func get_blinky_movement(_delta):
-    navigator.target_position = get_tree().get_nodes_in_group("player")[0].global_position
+    update_nav_target()
     
     var vector : Vector2 = (navigator.get_next_path_position() - global_position).normalized()
     

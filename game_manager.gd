@@ -119,8 +119,6 @@ func spawn_item(item_template):
     var new_y = randi() % MAX_SPAWN_RANGE_Y * 2 - MAX_SPAWN_RANGE_Y
     new_item.position = Vector2(new_x, new_y)
     
-    #new_apple.add_to_group('all_apples')
-    #add_child(new_apple)
     call_deferred("add_child", new_item)
 
 func spawn_ghost(template_to_use):
