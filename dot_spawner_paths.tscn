@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5o3fhvo8pdm1"]
+
+[ext_resource type="Script" path="res://path_follower.gd" id="1_redg5"]
+
+[sub_resource type="Curve2D" id="Curve2D_88gtk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, 256, 0, 0, 0, 0, 320, 256, 0, 0, 0, 0, 320, 192, 0, 0, 0, 0, 192, 192, 0, 0, 0, 0, 192, -224, 0, 0, 0, 0, 320, -224, 0, 0, 0, 0, 320, -384, 0, 0, 0, 0, 32, -384, 0, 0, 0, 0, 32, -288, 0, 0, 0, 0, -32, -288, 0, 0, 0, 0, -32, -384, 0, 0, 0, 0, -320, -384, 0, 0, 0, 0, -320, -224, 0, 0, 0, 0, -192, -224, 0, 0, 0, 0, -192, 192, 0, 0, 0, 0, -320, 192, 0, 0, 0, 0, -320, 248)
+}
+point_count = 17
+
+[node name="dot_spawner_paths" type="Node"]
+
+[node name="my_path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_88gtk")
+
+[node name="path_follower" type="PathFollow2D" parent="my_path"]
+position = Vector2(-265.367, 256)
+progress = 54.6342
+script = ExtResource("1_redg5")
+
+[node name="_Timer_116126" type="Timer" parent="my_path/path_follower"]
+wait_time = 0.2
+one_shot = true

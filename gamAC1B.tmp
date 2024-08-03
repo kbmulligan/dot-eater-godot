@@ -1,0 +1,266 @@
+[gd_scene load_steps=34 format=3 uid="uid://b8rdlo55c4de1"]
+
+[ext_resource type="PackedScene" uid="uid://hg108sestart" path="res://ghost_enemy.tscn" id="1_dobtn"]
+[ext_resource type="Script" path="res://game_manager.gd" id="1_lyx3y"]
+[ext_resource type="Script" path="res://player-charbody2d.gd" id="1_p08xt"]
+[ext_resource type="Texture2D" uid="uid://b50b786fm3pup" path="res://icon.svg" id="2_brann"]
+[ext_resource type="Texture2D" uid="uid://4yru4tdvmovf" path="res://assets/pacman-art/pacman-down/1.png" id="3_6cn7t"]
+[ext_resource type="Texture2D" uid="uid://dpjl1osemahaw" path="res://assets/pacman-art/pacman-down/2.png" id="4_wmuxb"]
+[ext_resource type="Texture2D" uid="uid://bmlyrc5rvcj83" path="res://assets/pacman-art/pacman-down/3.png" id="5_64ddn"]
+[ext_resource type="Texture2D" uid="uid://ci4lcvmrqfnay" path="res://assets/pacman-art/pacman-left/1.png" id="6_wxcsu"]
+[ext_resource type="Texture2D" uid="uid://dtn482eq31m55" path="res://assets/pacman-art/pacman-left/2.png" id="7_ursj4"]
+[ext_resource type="Texture2D" uid="uid://c14xavtovj3hw" path="res://assets/pacman-art/pacman-left/3.png" id="8_wa72y"]
+[ext_resource type="Texture2D" uid="uid://oexx7s7rcl4b" path="res://assets/pacman-art/pacman-right/1.png" id="9_ujqny"]
+[ext_resource type="Texture2D" uid="uid://ck7b2k30ymsf0" path="res://assets/pacman-art/pacman-right/2.png" id="10_lbpba"]
+[ext_resource type="Texture2D" uid="uid://btqie7yyop2ls" path="res://assets/pacman-art/pacman-right/3.png" id="11_jpie4"]
+[ext_resource type="Texture2D" uid="uid://r5hbrolrvief" path="res://assets/pacman-art/pacman-up/1.png" id="12_1i6qn"]
+[ext_resource type="Texture2D" uid="uid://i56184m84hfe" path="res://assets/pacman-art/pacman-up/2.png" id="13_vllc7"]
+[ext_resource type="Texture2D" uid="uid://cnmtyp04wayts" path="res://assets/pacman-art/pacman-up/3.png" id="14_ysjxh"]
+[ext_resource type="Script" path="res://player-anim2d.gd" id="15_d43il"]
+[ext_resource type="Script" path="res://Teleport2.gd" id="16_2517u"]
+[ext_resource type="Texture2D" uid="uid://bhwgawe8thmnf" path="res://assets/pacman-art/other/apple.png" id="16_l8mbj"]
+[ext_resource type="PackedScene" uid="uid://cor4olgmkfabw" path="res://apple-pickup.tscn" id="17_h054k"]
+[ext_resource type="Script" path="res://points-display.gd" id="19_tuvp0"]
+[ext_resource type="Texture2D" uid="uid://c5lml4tk45qnd" path="res://assets/pacman-art/other/strawberry.png" id="20_5hn0y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ao3k8"]
+radius = 40.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ihmox"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_brann")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6cn7t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wmuxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_64ddn")
+}],
+"loop": true,
+"name": &"down",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_wxcsu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ursj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wa72y")
+}],
+"loop": true,
+"name": &"left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_ujqny")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_lbpba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jpie4")
+}],
+"loop": true,
+"name": &"right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_1i6qn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vllc7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ysjxh")
+}],
+"loop": true,
+"name": &"up",
+"speed": 10.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ok16y"]
+blend_mode = 2
+
+[sub_resource type="ImageTexture" id="ImageTexture_x6imp"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5px17"]
+specular_texture = SubResource("ImageTexture_x6imp")
+specular_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7or56"]
+size = Vector2(30.5, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6rts"]
+size = Vector2(62, 64)
+
+[sub_resource type="GDScript" id="GDScript_fb3e3"]
+script/source = "extends CollisionShape2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+    pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+    pass
+"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pybmf"]
+distance = -283.0
+
+[sub_resource type="Theme" id="Theme_fqx41"]
+
+[sub_resource type="Theme" id="Theme_klyvk"]
+
+[node name="gameroot" type="Node2D" groups=["all_apples"]]
+
+[node name="game_manager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_lyx3y")
+
+[node name="player-char" type="CharacterBody2D" parent="."]
+script = ExtResource("1_p08xt")
+
+[node name="player-collision2d" type="CollisionShape2D" parent="player-char"]
+position = Vector2(6, 1)
+shape = SubResource("CircleShape2D_ao3k8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="player-char"]
+position = Vector2(8, 1)
+scale = Vector2(5, 4.752)
+sprite_frames = SubResource("SpriteFrames_ihmox")
+animation = &"right"
+script = ExtResource("15_d43il")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, 0)
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -10
+material = SubResource("CanvasItemMaterial_ok16y")
+position = Vector2(-9, 16.9999)
+scale = Vector2(1358, 820)
+texture = SubResource("CanvasTexture_5px17")
+
+[node name="ghost-enemy" parent="." instance=ExtResource("1_dobtn")]
+position = Vector2(-280, -183)
+
+[node name="apple-2" parent="." instance=ExtResource("17_h054k")]
+
+[node name="reference-block1" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(-517, 0)
+
+[node name="reference-block-collision2d" type="CollisionShape2D" parent="reference-block1"]
+position = Vector2(-107.5, -1)
+shape = SubResource("RectangleShape2D_7or56")
+
+[node name="Sprite2D" type="Sprite2D" parent="reference-block1"]
+position = Vector2(-108, 0)
+scale = Vector2(2.8125, 2.875)
+texture = ExtResource("16_l8mbj")
+
+[node name="Teleport1" type="Area2D" parent="."]
+script = ExtResource("16_2517u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport1"]
+position = Vector2(-512, 0)
+shape = SubResource("RectangleShape2D_w6rts")
+one_way_collision_margin = 0.0
+script = SubResource("GDScript_fb3e3")
+
+[node name="Teleport2" type="Area2D" parent="."]
+position = Vector2(66, 0)
+script = ExtResource("16_2517u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teleport2"]
+position = Vector2(452, 0)
+shape = SubResource("RectangleShape2D_w6rts")
+one_way_collision_margin = 0.0
+script = SubResource("GDScript_fb3e3")
+
+[node name="Strawberry" type="Sprite2D" parent="."]
+position = Vector2(-606, 465)
+scale = Vector2(4.125, 4.125)
+texture = ExtResource("20_5hn0y")
+
+[node name="walls" type="Node" parent="."]
+
+[node name="wall-bottom" type="StaticBody2D" parent="walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall-bottom"]
+position = Vector2(0, 61)
+shape = SubResource("WorldBoundaryShape2D_pybmf")
+
+[node name="wall-top" type="StaticBody2D" parent="walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall-top"]
+position = Vector2(0, -8)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_pybmf")
+
+[node name="wall-right" type="StaticBody2D" parent="walls"]
+position = Vector2(205, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall-right"]
+position = Vector2(139, 0)
+rotation = 4.71239
+shape = SubResource("WorldBoundaryShape2D_pybmf")
+
+[node name="wall-left" type="StaticBody2D" parent="walls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="walls/wall-left"]
+position = Vector2(-346, 0)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_pybmf")
+
+[node name="labels" type="Node" parent="."]
+
+[node name="Label-River" type="Label" parent="labels"]
+offset_left = -412.0
+offset_top = -323.0
+offset_right = -330.0
+offset_bottom = -284.0
+theme = SubResource("Theme_fqx41")
+theme_type_variation = &"HeaderLarge"
+text = "RIVER"
+
+[node name="Label-Willow" type="Label" parent="labels"]
+offset_left = 300.0
+offset_top = -323.0
+offset_right = 413.0
+offset_bottom = -284.0
+theme = SubResource("Theme_klyvk")
+theme_type_variation = &"HeaderLarge"
+text = "WILLOW"
+
+[node name="points-display" type="Label" parent="labels"]
+offset_left = -22.0
+offset_top = -339.0
+offset_right = 80.0
+offset_bottom = -285.0
+theme_override_font_sizes/font_size = 39
+text = "000"
+script = ExtResource("19_tuvp0")
+
+[connection signal="body_entered" from="Teleport1" to="Teleport1" method="_on_body_entered"]
+[connection signal="body_entered" from="Teleport2" to="Teleport2" method="_on_body_entered"]

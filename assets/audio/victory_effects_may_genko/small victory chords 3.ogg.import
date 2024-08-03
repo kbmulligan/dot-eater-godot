@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dc2hqexj0rcn7"
+path="res://.godot/imported/small victory chords 3.ogg-3751dad4e758ef4ba933348400d5c696.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/victory_effects_may_genko/small victory chords 3.ogg"
+dest_files=["res://.godot/imported/small victory chords 3.ogg-3751dad4e758ef4ba933348400d5c696.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dow8xqayptpyu"
+path="res://.godot/imported/pick up 1.ogg-ffd339cda2e992fc9c61aea183f5537f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/victory_effects_may_genko/pick up 1.ogg"
+dest_files=["res://.godot/imported/pick up 1.ogg-ffd339cda2e992fc9c61aea183f5537f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

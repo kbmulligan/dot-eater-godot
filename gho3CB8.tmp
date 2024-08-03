@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://hg108sestart"]
+
+[ext_resource type="Script" path="res://ghost_enemy.gd" id="1_7yt6y"]
+[ext_resource type="Texture2D" uid="uid://brp0beim0b2ll" path="res://assets/pacman-art/ghosts/blinky.png" id="1_s7kua"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6sy5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s7kua")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7lpx"]
+radius = 29.0172
+
+[node name="ghost-enemy" type="CharacterBody2D"]
+script = ExtResource("1_7yt6y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.78814e-07, 1)
+scale = Vector2(3.625, 3.6875)
+sprite_frames = SubResource("SpriteFrames_s6sy5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i7lpx")

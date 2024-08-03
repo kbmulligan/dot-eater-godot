@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp5xpgacsclot"]
+
+[ext_resource type="Texture2D" uid="uid://b1nmpbjru7yh7" path="res://assets/pacman-art/other/dot.png" id="1_nbuer"]
+[ext_resource type="Script" path="res://dot.gd" id="1_p42w7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qxns"]
+radius = 1.41421
+
+[node name="dot" type="Area2D"]
+z_index = 1
+script = ExtResource("1_p42w7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nbuer")
+
+[node name="CollisionArea2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_6qxns")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

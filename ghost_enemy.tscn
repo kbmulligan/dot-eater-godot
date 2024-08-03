@@ -1,0 +1,138 @@
+[gd_scene load_steps=13 format=3 uid="uid://hg108sestart"]
+
+[ext_resource type="Script" path="res://ghost_enemy.gd" id="1_7yt6y"]
+[ext_resource type="Texture2D" uid="uid://brp0beim0b2ll" path="res://assets/pacman-art/ghosts/blinky.png" id="1_s7kua"]
+[ext_resource type="Texture2D" uid="uid://cwgo6miu7u7fi" path="res://assets/pacman-art/ghosts/blue_ghost.png" id="3_gt2a0"]
+[ext_resource type="Texture2D" uid="uid://c77ubxs0jd1o1" path="res://assets/pacman-art/ghosts/clyde.png" id="4_d0n2p"]
+[ext_resource type="Texture2D" uid="uid://c7b4mgk5f3jm7" path="res://assets/pacman-art/ghosts/inky.png" id="5_1gvn6"]
+[ext_resource type="Texture2D" uid="uid://cab4rlib866e4" path="res://assets/pacman-art/ghosts/pinky.png" id="6_3e1lt"]
+[ext_resource type="AudioStream" uid="uid://b0jgybbu546ph" path="res://assets/audio/pepSound5.ogg" id="7_c3wjr"]
+
+[sub_resource type="Shader" id="Shader_dal7s"]
+code = "shader_type canvas_item;
+
+uniform vec4 blink_color: source_color;
+uniform float blink_intensity = 0;
+
+uniform bool active = false;
+
+void fragment() {
+    vec4 previous_color = texture(TEXTURE, UV);
+    vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+    vec4 new_color = mix(previous_color, blink_color, blink_intensity * previous_color.a);
+    //if (active == true)
+    //{
+    //    new_color = white_color;
+    //}
+    COLOR = new_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5h1wl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_dal7s")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
+shader_parameter/active = true
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s6sy5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s7kua")
+}],
+"loop": true,
+"name": &"blinky",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gt2a0")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_d0n2p")
+}],
+"loop": true,
+"name": &"clyde",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s7kua")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_1gvn6")
+}],
+"loop": true,
+"name": &"inky",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3e1lt")
+}],
+"loop": true,
+"name": &"pinky",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i7lpx"]
+radius = 12.3317
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cwgxa"]
+radius = 20.0
+
+[node name="ghost-enemy" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_7yt6y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_5h1wl")
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_s6sy5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.3, 1.3)
+shape = SubResource("CircleShape2D_i7lpx")
+
+[node name="spawn-sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_c3wjr")
+autoplay = true
+bus = &"SFX"
+
+[node name="phase_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 5.0
+path_postprocessing = 1
+avoidance_enabled = true
+radius = 20.0
+neighbor_distance = 200.0
+max_neighbors = 5
+max_speed = 200.0
+
+[node name="killzone" type="Area2D" parent="."]
+input_pickable = false
+audio_bus_name = &"SFX"
+
+[node name="death_shroud_2d" type="CollisionShape2D" parent="killzone"]
+shape = SubResource("CircleShape2D_cwgxa")
+
+[connection signal="timeout" from="phase_timer" to="." method="_on_phase_timer_timeout"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
